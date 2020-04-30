@@ -5,9 +5,19 @@ import com.covidtracker.coviddemo.model.Global;
 import com.covidtracker.coviddemo.model.Countries;
 
 public class SummaryModel {
-	//private Global global;
-	int NewConfirmed;
-	public int getNewConfirmed() {
+	private Global global;
+	private List<Countries> countries;
+	private String date;
+	
+	/*int NewConfirmed;
+	int  TotalConfirmed;
+	int  NewDeaths;
+	int  TotalDeaths;
+	int  NewRecovered;
+	int  TotalRecovered;*/
+	
+	
+	/*public int getNewConfirmed() {
 		return NewConfirmed;
 	}
 	public void setNewConfirmed(int newConfirmed) {
@@ -49,13 +59,21 @@ public class SummaryModel {
 	public void setTotalRecovered(int totalRecovered) {
 		TotalRecovered = totalRecovered;
 	}
-	int  TotalConfirmed;
-	int  NewDeaths;
-	int  TotalDeaths;
-	int  NewRecovered;
-	int  TotalRecovered;
-	private List<Countries> countries;
-	private String date;
+	*/
+	public Global getGlobal() {
+		return global;
+	}
+	public void setGlobal(Global global) {
+		this.global = global;
+	}
+	public List<Countries> getCountries() {
+		return countries;
+	}
+	public void setCountries(List<Countries> countries) {
+		this.countries = countries;
+	}
+
+	
 public String getDate() {
 		return date;
 	}
@@ -63,20 +81,8 @@ public String getDate() {
 		this.date = date;
 	}
 
-	/*public String toString() {
+	public String toString() {
 		return "SummaryModel [global=" + global + ", countries=" + countries + "]";
-	}
-public Global getGlobal() {
-		return global;
-	}
-	public void setGlobal(Global global) {
-		this.global = global;
-	}*/
-	public List<Countries> getCountries() {
-		return countries;
-	}
-	public void setCountries(List<Countries> countries) {
-		this.countries = countries;
 	}
 
 }

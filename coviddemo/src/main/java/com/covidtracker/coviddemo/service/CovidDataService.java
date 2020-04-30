@@ -1,4 +1,4 @@
-package com.covidtracker.coviddemo.servie;
+package com.covidtracker.coviddemo.service;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -8,61 +8,47 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 import javax.annotation.PostConstruct;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import com.covidtracker.coviddemo.model.Global;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.minidev.json.JSONObject;
 import com.covidtracker.coviddemo.model.*;
 
 
-
 @Service
-public class CovidDataService
-{
-	
-//@Autowired
-private com.covidtracker.coviddemo.model.SummaryModel summary=new SummaryModel() ;
-private CountryInfo countryinfo=new CountryInfo();
+public class CovidDataService {
+    private static final String SUMMARY_API_URL = "https://api.covid19api.com/summary";
+    private static final String COUNTRY_WISE_DATA_API_URL = "https://api.covid19api.com/countries";
 
+    // Please remove @PostConstruct annotation.
+    // It's advisable to call this method explicitly.
+    // This bean will slow down container start up time as API calls have to be fetched.
+    // Check container start up time in console by
+        // 1. Adding @PostConstruct annotation
+        // 2. Removing @PostConstruct annotation.
+    @PostConstruct
+    public void fetchVirusData() throws IOException, InterruptedException {
+        //HttpClient client = HttpClientBuilder.create().build();
+        //HttpResponse response = client.execute(new HttpGet(SAMPLE_URL));
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(SUMMARY_API_URL))
+                .build();
 
+        HttpResponse<String> httpResponse = client.send(request, BodyHandlers.ofString());
+        System.out.println(httpResponse.statusCode());
+        System.out.println(httpResponse.body());
 
-@PostConstruct 
-public void fetchVirusData() throws IOException, InterruptedException
-{
-//HttpClient client = HttpClientBuilder.create().build(); 
-//HttpResponse response = client.execute(new HttpGet(SAMPLE_URL));
-		String countrywiseData="https://api.covid19api.com/countries";
-		String summaryData="https://api.covid19api.com/summary";
-	HttpClient client = HttpClient.newHttpClient();
-	HttpRequest request = HttpRequest.newBuilder()
-         .uri(URI.create(summaryData))
-         .build();
+        ObjectMapper objectMapper = new ObjectMapper();
 
-HttpResponse<String> httpResponse = client.send(request, BodyHandlers.ofString());
- System.out.println(httpResponse.statusCode());
- System.out.println(httpResponse.body());
- 
- ObjectMapper objectMapper = new ObjectMapper()
- .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        //read json file and convert to customer object
+        SummaryModel summary = objectMapper.readValue(httpResponse.body(), SummaryModel.class);
+        System.out.println(summary);
 
- //read json file and convert to customer object
- summary = objectMapper.readValue(httpResponse.body(), SummaryModel.class);
-  System.out.println(summary);
-  
-}}
+    }
+}
 
 
 /*
@@ -74,7 +60,7 @@ HttpResponse<String> httpResponse = client.send(request, BodyHandlers.ofString()
         String url = "https://jsonplaceholder.typicode.com/posts";
         return this.restTemplate.getForObject(url, String.class);
 	         */
-	 //Asynchronous call     
+//Asynchronous call
 	/*WebClient client1 = WebClient
 	 * .builder()
 	        		  			.baseUrl("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=INFY.NS&interval=1min&apikey=DM3P5MNMBKC2U7O6")

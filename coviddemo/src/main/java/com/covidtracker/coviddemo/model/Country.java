@@ -4,27 +4,35 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Global {
+public class Country {
 
     @JsonProperty("NewConfirmed")
-    private int NewConfirmed;
+    int newConfirmed;
     @JsonProperty("TotalConfirmed")
-    private int totalConfirmed;
+    int totalConfirmed;
     @JsonProperty("NewDeaths")
-    private int newDeaths;
+    int newDeaths;
     @JsonProperty("TotalDeaths")
-    private int totalDeaths;
+    int totalDeaths;
     @JsonProperty("NewRecovered")
-    private int newRecovered;
+    int newRecovered;
     @JsonProperty("TotalRecovered")
-    private int totalRecovered;
+    int totalRecovered;
+    @JsonProperty("Country")
+    String country;
+    @JsonProperty("CountryCode")
+    String countryCode;
+    @JsonProperty("Slug")
+    String slug;
+    @JsonProperty("Date")
+    String date;
 
     public int getNewConfirmed() {
-        return NewConfirmed;
+        return newConfirmed;
     }
 
     public void setNewConfirmed(int newConfirmed) {
-        this.NewConfirmed = newConfirmed;
+        this.newConfirmed = newConfirmed;
     }
 
     public int getTotalConfirmed() {
@@ -67,11 +75,44 @@ public class Global {
         this.totalRecovered = totalRecovered;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return "Global [NewConfirmed=" + NewConfirmed + ", TotalConfirmed=" + totalConfirmed + ", NewDeaths="
-                + newDeaths + ", TotalDeaths=" + totalDeaths + ", NewRecovered=" + newRecovered + ", TotalRecovered="
-                + totalRecovered + "]";
+        return "Country [Country=" + country + ", CountryCode=" + countryCode + ", Slug=" + slug
+                + ", NewConfirmed=" + newConfirmed + ", TotalConfirmed=" + totalConfirmed + ", NewDeaths="
+                + newDeaths + ", TotalDeaths=" + totalDeaths + ", NewRecovered=" + newRecovered
+                + ", TotalRecovered=" + totalRecovered + ", date=" + date + "]";
     }
 
 }

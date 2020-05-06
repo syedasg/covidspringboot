@@ -55,8 +55,8 @@ HttpResponse<String> httpResponse = client.send(request, BodyHandlers.ofString()
  System.out.println(httpResponse.statusCode());
  System.out.println(httpResponse.body());
  
- ObjectMapper objectMapper = new ObjectMapper();
- //configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+ ObjectMapper objectMapper = new ObjectMapper()
+ .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
  //read json file and convert to customer object
  summary = objectMapper.readValue(httpResponse.body(), SummaryModel.class);

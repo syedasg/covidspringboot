@@ -9,11 +9,11 @@ public class Countries {
 
               
                 String Country;
-                String CountryCode;
+                String countryCode;
                 String Slug;
                 int NewConfirmed;
                 int TotalConfirmed;
-                int NewDeaths;
+                int NewDeaths; 
                 int TotalDeaths;
                 int NewRecovered;
                 int TotalRecovered;
